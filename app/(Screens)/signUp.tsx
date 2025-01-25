@@ -1,14 +1,27 @@
 import { ScrollView, Text, View } from "react-native";
+import {
+  SafeAreaFrameContext,
+  SafeAreaView,
+} from "react-native-safe-area-context";
 
 const SignUp = () => {
   return (
-    <ScrollView className="flex-1 bg-white">
-      <View className="flex-1 bg-white">
-        <View className="relative w-full h-[250px]">
-          <Text className="text-2xl text-black">Create Your Account</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ flex: 1, backgroundColor: "wrazer-black" }}>
+        <View style={{ width: "100%", height: 250, position: "relative" }}>
+          <Text
+            style={{
+              fontSize: 24,
+              color: "black",
+              marginTop: 200,
+              textAlign: "center",
+            }}
+          >
+            Join Lynti Rides
+          </Text>
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
