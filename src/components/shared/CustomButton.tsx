@@ -14,6 +14,7 @@ const CustomButton: FC<CustomButtonProps> = ({
   title,
   disabled,
   loading,
+  bgVariant = "solid",
 }) => {
   return (
     <TouchableOpacity
@@ -22,9 +23,16 @@ const CustomButton: FC<CustomButtonProps> = ({
       style={[
         styles.container,
         {
-          backgroundColor: disabled ? Colors.secondary : Colors.primary,
+          backgroundColor: disabled
+            ? Colors.secondary
+            : bgVariant === "outline"
+            ? "transparent"
+            : Colors.primary,
+          borderColor: bgVariant === "outline" ? Colors.primary : "transparent", // Outline border
+          borderWidth: bgVariant === "outline" ? 2 : 0, // Add border width for outline variant
         },
       ]}
+      disabled={disabled}
     >
       {loading ? (
         <ActivityIndicator color={Colors.text} size="small" />
@@ -33,7 +41,11 @@ const CustomButton: FC<CustomButtonProps> = ({
           fontFamily="SemiBold"
           style={{
             fontSize: RFValue(12),
-            color: disabled ? "#fff" : Colors.text,
+            color: disabled
+              ? "#fff"
+              : bgVariant === "outline"
+              ? Colors.text
+              : Colors.text,
           }}
         >
           {title}
@@ -45,10 +57,10 @@ const CustomButton: FC<CustomButtonProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
-    margin: 10,
+    borderRadius: 15,
+    marginTop: 15,
     padding: 10,
-    height: 45,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",

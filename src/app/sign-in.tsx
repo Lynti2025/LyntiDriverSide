@@ -13,7 +13,7 @@ import { Link } from "expo-router";
 import { Colors } from "@/utils/Constants";
 import OAUth from "@/components/captain/Oauth";
 
-const Auth = () => {
+const SignIn = () => {
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +37,7 @@ const Auth = () => {
         </View>
 
         <CustomText fontFamily="Medium" variant="h3">
-          Create Your Account
+          Welcome
         </CustomText>
 
         <CustomText
@@ -65,17 +65,8 @@ const Auth = () => {
           placeholder="Enter Your Password"
         />
 
-        <CustomText
-          variant="h5"
-          fontFamily="Regular"
-          style={commonStyles.lightText}
-        >
-          Your Phone Number
-        </CustomText>
-
-        <PhoneInput onChangeText={setPhone} value={phone} />
         <CustomButton
-          title="Sign Up"
+          title="Sign In"
           onPress={handleNext}
           loading={false}
           disabled={false}
@@ -84,11 +75,11 @@ const Auth = () => {
         <OAUth></OAUth>
 
         <Link
-          href="/sign-in"
+          href="/auth"
           style={{ textAlign: "center", marginTop: 25, fontSize: 15 }}
         >
-          <Text>Already have an account?</Text>
-          <Text style={{ color: Colors.login }}> Log In</Text>
+          <Text>Dont Have An Account?</Text>
+          <Text style={{ color: Colors.login }}> Sign Up</Text>
         </Link>
       </ScrollView>
 
@@ -108,4 +99,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default SignIn;

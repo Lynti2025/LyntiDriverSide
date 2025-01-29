@@ -4,25 +4,22 @@ import { RFValue } from "react-native-responsive-fontsize";
 import CustomText from "./CustomText";
 import { TextInput } from "react-native-gesture-handler";
 
-const PhoneInput: FC<PhoneInputProps> = ({
+const CustomInput: FC<CustomInputProps> = ({
   value,
   onChangeText,
-  onBlur,
-  onFocus,
+  placeholder,
 }) => {
   return (
     <View style={styles.container}>
       <CustomText fontFamily="Medium" style={styles.text}>
-        +91
+        X
       </CustomText>
       <TextInput
-        placeholder="0000000000"
-        keyboardType="phone-pad"
+        placeholder={placeholder}
+        keyboardType="default"
         value={value}
-        maxLength={10}
+        maxLength={25}
         onChangeText={onChangeText}
-        onFocus={onFocus}
-        onBlur={onBlur}
         placeholderTextColor={"#ccc"}
         style={styles.input}
       />
@@ -54,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PhoneInput;
+export default CustomInput;
