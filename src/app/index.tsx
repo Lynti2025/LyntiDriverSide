@@ -1,11 +1,12 @@
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { commonStyles } from "@/styles/commonStyles";
 import { splashStyles } from "@/styles/splashStyles";
 import CustomText from "@/components/shared/CustomText";
 import { useFonts } from "expo-font";
-import { useSafeAreaFrame } from "react-native-safe-area-context";
 import { resetAndNavigate } from "@/utils/Helpers";
+import { useAuth } from "@clerk/clerk-expo";
+import { Redirect } from "expo-router";
 
 const Main = () => {
   const [loaded] = useFonts({
@@ -17,6 +18,12 @@ const Main = () => {
   });
 
   const [hasNavigated, setHasNavigated] = useState(false);
+
+  const { isSignedIn } = useAuth();
+
+  if (isSignedIn) {
+    return <Redirect href={"/home"} />;
+  }
 
   const tokenCheck = async () => {
     resetAndNavigate("/auth");
