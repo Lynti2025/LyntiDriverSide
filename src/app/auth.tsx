@@ -1,19 +1,11 @@
 import { authStyles } from "@/styles/authStyles";
 import { commonStyles } from "@/styles/commonStyles";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Button,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomText from "@/components/shared/CustomText";
-import PhoneInput from "@/components/shared/PhoneInput";
 import CustomButton from "@/components/shared/CustomButton";
 import CustomInput from "@/components/shared/CustomInput";
 import { Link, router, withLayoutContext } from "expo-router";
@@ -22,12 +14,14 @@ import OAUth from "@/components/captain/Oauth";
 import { useSignUp } from "@clerk/clerk-expo";
 import ReactNativeModal from "react-native-modal";
 import CheckImage from "@/assets/images/check.png";
+import EmailInput from "@/components/shared/EmailInput";
 
 const Auth = () => {
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const { isLoaded, signUp, setActive } = useSignUp();
   const [verification, setVerification] = useState({
     state: "default",
@@ -41,8 +35,8 @@ const Auth = () => {
     // Start sign-up process using email and password provided
     try {
       await signUp.create({
-        emailAddress,
-        password,
+        emailAddress: form.email,
+        password: form.password,
       });
 
       // Send user an email with verification code
@@ -117,8 +111,13 @@ const Auth = () => {
           Name
         </CustomText>
         <CustomInput
-          onChangeText={setName}
-          value={name}
+          onChangeText={(value) =>
+            setForm({
+              ...form,
+              name: value,
+            })
+          }
+          value={form.name}
           placeholder="Enter Your Name"
         />
         <CustomText
@@ -129,8 +128,8 @@ const Auth = () => {
           Password
         </CustomText>
         <CustomInput
-          onChangeText={setPassword}
-          value={password}
+          onChangeText={(value) => setForm({ ...form, password: value })}
+          value={form.password}
           placeholder="Enter Your Password"
         />
 
@@ -139,10 +138,12 @@ const Auth = () => {
           fontFamily="Regular"
           style={commonStyles.lightText}
         >
-          Your Phone Number
+          E-mail
         </CustomText>
-
-        <PhoneInput onChangeText={setPhone} value={phone} />
+        <EmailInput
+          value={form.email}
+          onChangeText={(value) => setForm({ ...form, email: value })}
+        ></EmailInput>
         <CustomButton
           title="Sign Up"
           onPress={onSignUpPress}
@@ -189,7 +190,7 @@ const Auth = () => {
           >
             <Text style={{ textAlign: "center" }}>verification</Text>
             <Text style={{ textAlign: "center" }}>
-              We've sent a verification code to {emailAddress}
+              We've sent a verification code to {form.email}
             </Text>
 
             <Text>Code</Text>
