@@ -23,6 +23,7 @@ const Auth = () => {
     password: "",
   });
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [verification, setVerification] = useState({
     state: "default",
     error: "",
@@ -175,9 +176,9 @@ const Auth = () => {
         </CustomText>
         <ReactNativeModal
           isVisible={verification.state === "pending"}
-          onModalHide={() =>
-            setVerification({ ...verification, state: "success" })
-          }
+          onModalHide={() => {
+            if ((verification.state = "success")) setShowSuccessModal(true);
+          }}
         >
           <View
             style={{
@@ -207,7 +208,7 @@ const Auth = () => {
             <Button title="verify email" onPress={onVerifyPress}></Button>
           </View>
         </ReactNativeModal>
-        <ReactNativeModal isVisible={verification.state === "success"}>
+        <ReactNativeModal isVisible={showSuccessModal}>
           <View
             style={{
               backgroundColor: "white",
