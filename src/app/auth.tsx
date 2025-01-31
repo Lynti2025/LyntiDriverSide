@@ -233,7 +233,7 @@ const Auth = () => {
             </Text>
             <Button
               title="Browse Home"
-              onPress={() => router.replace("/home")}
+              onPress={() => router.replace("/InApp/home")}
             ></Button>
           </View>
         </ReactNativeModal>

@@ -18,9 +18,9 @@ const Layout = () => {
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
         <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(InApp)" />
           <Stack.Screen name="index" />
           <Stack.Screen name="auth" />
-          <Stack.Screen name="home" />
           <Stack.Screen name="sign-in" />
         </Stack>
       </ClerkLoaded>
