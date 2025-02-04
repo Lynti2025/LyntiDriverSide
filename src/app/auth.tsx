@@ -8,7 +8,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomText from "@/components/shared/CustomText";
 import CustomButton from "@/components/shared/CustomButton";
 import CustomInput from "@/components/shared/CustomInput";
-import { Link, router, withLayoutContext } from "expo-router";
+import { Link, router } from "expo-router";
 import { Colors } from "@/utils/Constants";
 import OAUth from "@/components/captain/Oauth";
 import { useSignUp } from "@clerk/clerk-expo";
@@ -233,7 +233,7 @@ const Auth = () => {
             </Text>
             <Button
               title="Browse Home"
-              onPress={() => router.replace("/InApp/home")}
+              onPress={() => router.replace("/documentUpload")}
             ></Button>
           </View>
         </ReactNativeModal>

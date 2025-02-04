@@ -22,6 +22,7 @@ const Layout = () => {
           <Stack.Screen name="index" />
           <Stack.Screen name="auth" />
           <Stack.Screen name="sign-in" />
+          <Stack.Screen name="documentUpload" />
         </Stack>
       </ClerkLoaded>
     </ClerkProvider>
