@@ -57,28 +57,41 @@ const Auth = () => {
     if (!isLoaded) return;
 
     try {
-      // Use the code the user provided to attempt verification
+      // Verify email with Clerk
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code: verification.code,
       });
 
       if (signUpAttempt.status === "complete") {
-        // TODO: Create a database user
+        // Get Clerk User ID
+        const clerkId = signUpAttempt.createdUserId;
+
+        // Save user to NeonDB
+        await fetch("https://your-backend.com/api/createUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            clerkId,
+            email: form.email,
+            name: form.name,
+          }),
+        });
 
         await setActive({ session: signUpAttempt.createdSessionId });
         setVerification({ ...verification, state: "success" });
       } else {
         setVerification({
           ...verification,
-          error: "verification failed",
+          error: "Verification failed",
           state: "failed",
         });
-        console.error(JSON.stringify(signUpAttempt, null, 2));
       }
     } catch (err: any) {
       setVerification({
         ...verification,
-        error: err.errors[0].longmessage,
+        error: err.errors?.[0]?.longMessage || "An error occurred",
         state: "failed",
       });
     }
