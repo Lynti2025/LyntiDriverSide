@@ -2,11 +2,11 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function POST(
-  req: Request
-) {
+export async function POST(req: Request) {
   if (req.method !== "POST") {
-    return Response.json({message : "Method not allowed"})
+    return new Response(JSON.stringify({ message: "Method not allowed" }), {
+      status: 405,
+    });
   }
 
   try {
@@ -14,7 +14,10 @@ export async function POST(
 
     // Ensure all required fields are present
     if (!clerkId || !licenseUrl || !rcUrl || !aadhaarUrl) {
-      return Response.json({message : "missing fields required"})
+      return new Response(
+        JSON.stringify({ message: "Missing fields required" }),
+        { status: 400 }
+      );
     }
 
     // Check if the driver exists
@@ -41,9 +44,14 @@ export async function POST(
       });
     }
 
-    Response.json({message : "documents saved successfully", driver})
+    return new Response(
+      JSON.stringify({ message: "Documents saved successfully", driver }),
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error saving documents:", error);
-    Response.json({message : "Internal server error"})
+    return new Response(JSON.stringify({ message: "Internal server error" }), {
+      status: 500,
+    });
   }
 }
