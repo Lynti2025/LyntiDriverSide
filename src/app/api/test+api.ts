@@ -1,5 +1,5 @@
 export function GET(request: Request) {
-    console.log("Test api working");
+    console.log("Chamar ahahah");
     return Response.json({ hello: 'world' });
-  }
-  
+}
+
