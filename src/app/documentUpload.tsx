@@ -73,6 +73,9 @@ export default function DocumentUpload() {
 
       const json = await response.json();
       console.log(`Cloudinary Upload Response (${docType}):`, json);
+
+      // TODO : ADD UPLOAD LOGIC FOR IMAGES (NEON DB )
+
       Alert.alert(`${docType.toUpperCase()} Uploaded`, "Upload successful!");
       setImages((prev) => ({ ...prev, [docType]: json.secure_url }));
     } catch (error) {

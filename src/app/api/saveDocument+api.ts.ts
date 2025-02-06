@@ -1,22 +1,20 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
+export async function POST(
+  req: Request
 ) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method Not Allowed" });
+    return Response.json({message : "Method not allowed"})
   }
 
   try {
-    const { clerkId, licenseUrl, rcUrl, aadhaarUrl } = req.body;
+    const { clerkId, licenseUrl, rcUrl, aadhaarUrl } = await req.json();
 
     // Ensure all required fields are present
     if (!clerkId || !licenseUrl || !rcUrl || !aadhaarUrl) {
-      return res.status(400).json({ message: "Missing required fields" });
+      return Response.json({message : "missing fields required"})
     }
 
     // Check if the driver exists
@@ -43,9 +41,9 @@ export default async function handler(
       });
     }
 
-    res.status(200).json({ message: "Documents saved successfully", driver });
+    Response.json({message : "documents saved successfully", driver})
   } catch (error) {
     console.error("Error saving documents:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    Response.json({message : "Internal server error"})
   }
 }

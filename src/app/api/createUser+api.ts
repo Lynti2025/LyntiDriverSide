@@ -1,25 +1,20 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
-
+export async function POST(req: Request) {
+  console.log("createUser+api.ts ran")
   try {
-    const { clerkId, email, name } = req.body;
+    const {clerkId, email, name } = await req.json(); 
 
-    if (!clerkId || !email || !name) {
-      return res.status(400).json({ message: "Missing required fields" });
+    if (clerkId! || !email || !name) {
+      console.log("Email or name not found")
+      return Response.json({ message: "Missing required fields" }, { status: 400 });
     }
 
     // Check if the user already exists
     let user = await prisma.driver.findUnique({ where: { clerkId } });
+    
 
     if (!user) {
       user = await prisma.driver.create({
@@ -34,9 +29,10 @@ export default async function handler(
       });
     }
 
-    res.status(200).json({ message: "User created successfully", user });
+    console.log("User created Successfully")
+    return Response.json({ message: "User created successfully", user }, { status: 200 });
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

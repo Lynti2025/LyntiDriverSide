@@ -31,6 +31,8 @@ const Auth = () => {
   });
 
   const onSignUpPress = async () => {
+
+    console.log("signup function ran")
     if (!isLoaded) return;
 
     // Start sign-up process using email and password provided
@@ -54,6 +56,8 @@ const Auth = () => {
 
   // Handle submission of verification form
   const onVerifyPress = async () => {
+
+    console.log("verification function ran")
     if (!isLoaded) return;
 
     try {
