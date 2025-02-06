@@ -67,7 +67,7 @@ const Auth = () => {
         const clerkId = signUpAttempt.createdUserId;
 
         // Save user to NeonDB
-        await fetch("https://your-backend.com/api/createUser", {
+        await fetch("/api/createUser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

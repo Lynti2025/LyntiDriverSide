@@ -27,6 +27,9 @@ export default async function handler(
           clerkId,
           email,
           name,
+          licenseUrl: "",
+          rcUrl: "",
+          aadhaarUrl: "",
         },
       });
     }

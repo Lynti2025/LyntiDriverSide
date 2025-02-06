@@ -91,21 +91,18 @@ export default function DocumentUpload() {
 
     try {
       const clerkId = "user_clerk_id"; // Replace with actual Clerk ID from authentication
-      const response = await fetch(
-        "https://your-backend.com/api/saveDocuments",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            clerkId,
-            licenseUrl: images.license,
-            rcUrl: images.rc,
-            aadhaarUrl: images.aadhaar,
-          }),
-        }
-      );
+      const response = await fetch("/api/saveDocuments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          clerkId,
+          licenseUrl: images.license,
+          rcUrl: images.rc,
+          aadhaarUrl: images.aadhaar,
+        }),
+      });
 
       const data = await response.json();
       if (response.ok) {
