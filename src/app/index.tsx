@@ -21,9 +21,9 @@ const Main = () => {
 
   const { isSignedIn } = useAuth();
 
-  if (isSignedIn) {
-    return <Redirect href={"/InApp/home"} />;
-  }
+  // if (isSignedIn) {
+  //   return <Redirect href={"/InApp/home"} />;
+  // }
 
   const tokenCheck = async () => {
     resetAndNavigate("/auth");

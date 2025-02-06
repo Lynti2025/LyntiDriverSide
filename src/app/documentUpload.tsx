@@ -91,7 +91,7 @@ export default function DocumentUpload() {
 
     try {
       const clerkId = "user_clerk_id"; // Replace with actual Clerk ID from authentication
-      const response = await fetch("/api/saveDocuments", {
+      const response = await fetch("http://192.168.29.58:8081/api/saveDocuments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,6 +115,8 @@ export default function DocumentUpload() {
       Alert.alert("Error", "Something went wrong!");
     }
   };
+
+ 
 
   return (
     <ScrollView>
