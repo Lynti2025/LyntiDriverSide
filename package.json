@@ -44,6 +44,7 @@
     "expo-symbols": "~0.2.1",
     "expo-system-ui": "~4.0.7",
     "expo-web-browser": "~14.0.2",
+    "express": "^4.21.2",
     "haversine-distance": "^1.2.3",
     "jwt-decode": "^4.0.0",
     "next": "^15.1.6",
@@ -71,6 +72,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@types/express": "^5.0.0",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.3.12",
     "@types/react-test-renderer": "^18.3.0",
