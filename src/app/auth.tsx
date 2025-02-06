@@ -31,6 +31,8 @@ const Auth = () => {
   });
 
   const onSignUpPress = async () => {
+
+    console.log("signup function ran")
     if (!isLoaded) return;
 
     // Start sign-up process using email and password provided
@@ -54,6 +56,8 @@ const Auth = () => {
 
   // Handle submission of verification form
   const onVerifyPress = async () => {
+
+    console.log("verification function ran")
     if (!isLoaded) return;
 
     try {
@@ -67,7 +71,7 @@ const Auth = () => {
         const clerkId = signUpAttempt.createdUserId;
 
         // Save user to NeonDB
-        await fetch("/api/createUser", {
+        await fetch("http://192.168.29.58:8081/api/createUser", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -96,6 +100,21 @@ const Auth = () => {
       });
     }
   };
+
+  const testApi = async () =>{
+    try{
+      const response = await fetch("http://192.168.29.58:8081/api/test", {
+        method : "GET"
+      })
+
+      const data = await response.text();
+
+      console.log("Response :", data)
+    }
+    catch(err){
+      console.error("Error testAPI", err)
+    }
+  }
 
   return (
     <SafeAreaView style={authStyles.container}>
@@ -164,6 +183,12 @@ const Auth = () => {
           loading={false}
           disabled={false}
         />
+         <View>
+        <CustomButton
+          title={"Test route"}
+          onPress={()=>testApi()}
+        ></CustomButton>
+      </View>
 
         <OAUth></OAUth>
 
