@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Button,
   Image,
   ActivityIndicator,
   Alert,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ScrollView } from "react-native-gesture-handler";
 import CustomButton from "@/components/shared/CustomButton";
+import { useAuth } from "@clerk/clerk-expo";
 
 const CLOUDINARY_CLOUD_NAME = "dvztjsim2"; // Replace with your Cloudinary cloud name
 const UPLOAD_PRESET = "ImageUpload"; // Replace with your Cloudinary upload preset
 
 export default function DocumentUpload() {
+  const { userId } = useAuth(); // ✅ Use useAuth() inside the component
+
   const [images, setImages] = useState<{
     aadhaar: string | null;
     rc: string | null;
@@ -74,8 +76,6 @@ export default function DocumentUpload() {
       const json = await response.json();
       console.log(`Cloudinary Upload Response (${docType}):`, json);
 
-      // TODO : ADD UPLOAD LOGIC FOR IMAGES (NEON DB )
-
       Alert.alert(`${docType.toUpperCase()} Uploaded`, "Upload successful!");
       setImages((prev) => ({ ...prev, [docType]: json.secure_url }));
     } catch (error) {
@@ -87,39 +87,53 @@ export default function DocumentUpload() {
   };
 
   const handleSubmit = async () => {
+    if (!userId) {
+      Alert.alert("Error", "User not authenticated.");
+      return;
+    }
+
     if (!images.aadhaar || !images.rc || !images.license) {
       Alert.alert("Error", "Please upload all documents before submitting.");
       return;
     }
 
     try {
-      const clerkId = "user_clerk_id"; // Replace with actual Clerk ID from authentication
-      const response = await fetch("http://192.168.29.58:8081/api/saveDocuments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          clerkId,
-          licenseUrl: images.license,
-          rcUrl: images.rc,
-          aadhaarUrl: images.aadhaar,
-        }),
-      });
+      const response = await fetch(
+        "http://192.168.29.168:8081/api/saveDocument",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            clerkId: userId,
+            licenseUrl: images.license,
+            rcUrl: images.rc,
+            aadhaarUrl: images.aadhaar,
+          }),
+        }
+      );
 
-      const data = await response.json();
-      if (response.ok) {
-        Alert.alert("Success", "Documents submitted successfully!");
-      } else {
-        Alert.alert("Error", data.message || "Failed to submit documents.");
+      // Log the raw response
+      const text = await response.text();
+      console.log("Raw Response:", text);
+
+      try {
+        const data = JSON.parse(text);
+        if (response.ok) {
+          Alert.alert("Success", "Documents submitted successfully!");
+        } else {
+          Alert.alert("Error", data.message || "Failed to submit documents.");
+        }
+      } catch (jsonError) {
+        console.error("JSON Parse Error:", jsonError);
+        Alert.alert("Error", "Invalid response from server. Expected JSON.");
       }
     } catch (error) {
       console.error("Submit Error:", error);
       Alert.alert("Error", "Something went wrong!");
     }
   };
-
- 
 
   return (
     <ScrollView>
@@ -150,12 +164,10 @@ export default function DocumentUpload() {
 
         {uploading && <ActivityIndicator size="large" color="blue" />}
       </View>
-      // Save to neon DB
+
+      {/* Save to Neon DB */}
       <View>
-        <CustomButton
-          title={"Submit Documents"}
-          onPress={handleSubmit}
-        ></CustomButton>
+        <CustomButton title="Submit Documents" onPress={handleSubmit} />
       </View>
     </ScrollView>
   );
