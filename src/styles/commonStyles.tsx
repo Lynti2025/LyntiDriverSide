@@ -8,6 +8,12 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.background,
   },
+  SplashScreen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.razerBlack,
+  },
   containerBlack: {
     flex: 1,
     backgroundColor: Colors.background,
@@ -33,5 +39,6 @@ export const commonStyles = StyleSheet.create({
   lightText: {
     opacity: 0.7,
     marginTop: 15,
+    color: Colors.razerGreen,
   },
 });

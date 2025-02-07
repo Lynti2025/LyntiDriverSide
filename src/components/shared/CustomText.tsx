@@ -41,7 +41,7 @@ const CustomText: FC<CustomTextProps> = ({
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.text,
+    color: Colors.razerGreen,
     textAlign: "left",
   },
 });

@@ -174,7 +174,9 @@ const Auth = () => {
           href="/sign-in"
           style={{ textAlign: "center", marginTop: 25, fontSize: 15 }}
         >
-          <Text>Already have an account?</Text>
+          <Text style={{ color: Colors.razerGreen }}>
+            Already have an account?
+          </Text>
           <Text style={{ color: Colors.login }}> Log In</Text>
         </Link>
       </ScrollView>

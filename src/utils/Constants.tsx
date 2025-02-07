@@ -12,5 +12,8 @@ export enum Colors {
   tertiary = "#3C75BE",
   secondary_light = "#F6F7F9",
   iosColor = "#007AFF",
-  login = "#0000FF",
+  login = "#00EFFF",
+  razerBlack = "#000",
+  razerGreen = "#66B933",
+  white = "#ffffff",
 }

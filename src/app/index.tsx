@@ -40,7 +40,7 @@ const Main = () => {
   }, [loaded, hasNavigated]);
 
   return (
-    <View style={commonStyles.container}>
+    <View style={commonStyles.SplashScreen}>
       <Image
         source={require("@/assets/images/logo_t.png")}
         style={splashStyles.img}

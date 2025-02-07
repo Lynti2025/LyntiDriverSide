@@ -27,8 +27,9 @@ const CustomButton: FC<CustomButtonProps> = ({
             ? Colors.secondary
             : bgVariant === "outline"
             ? "transparent"
-            : Colors.primary,
-          borderColor: bgVariant === "outline" ? Colors.primary : "transparent", // Outline border
+            : Colors.razerGreen,
+          borderColor:
+            bgVariant === "outline" ? Colors.razerGreen : "transparent", // Outline border
           borderWidth: bgVariant === "outline" ? 2 : 0, // Add border width for outline variant
         },
       ]}
@@ -44,7 +45,7 @@ const CustomButton: FC<CustomButtonProps> = ({
             color: disabled
               ? "#fff"
               : bgVariant === "outline"
-              ? Colors.text
+              ? Colors.white
               : Colors.text,
           }}
         >
