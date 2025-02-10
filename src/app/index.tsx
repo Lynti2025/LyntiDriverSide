@@ -22,7 +22,7 @@ const Main = () => {
   const { isSignedIn } = useAuth();
 
   if (isSignedIn) {
-    return <Redirect href={"/InApp/home"} />;
+    return <Redirect href={"/documentUpload"} />;
   }
 
   const tokenCheck = async () => {

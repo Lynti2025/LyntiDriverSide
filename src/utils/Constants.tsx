@@ -14,6 +14,6 @@ export enum Colors {
   iosColor = "#007AFF",
   login = "#00EFFF",
   razerBlack = "#000",
-  razerGreen = "#66B933",
+  razerGreen = "#00FF00",
   white = "#ffffff",
 }

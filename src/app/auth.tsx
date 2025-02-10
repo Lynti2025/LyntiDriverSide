@@ -166,7 +166,6 @@ const Auth = () => {
           loading={false}
           disabled={false}
         />
-        <View></View>
 
         <OAUth></OAUth>
 

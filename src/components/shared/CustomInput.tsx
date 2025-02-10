@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     gap: 4,
     marginVertical: 5,
     borderWidth: 3,
-    borderColor: "#222",
+    borderColor: "#333333",
     borderRadius: 15,
     paddingHorizontal: 10,
   },
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     fontFamily: "Medium",
     height: 45,
     width: "90%",
+    color: "#fff",
   },
   text: {
     fontSize: RFValue(13),

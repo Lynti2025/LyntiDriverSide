@@ -12,6 +12,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import CustomButton from "@/components/shared/CustomButton";
 import { useAuth } from "@clerk/clerk-expo";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const CLOUDINARY_CLOUD_NAME = "dvztjsim2"; // Replace with your Cloudinary cloud name
 const UPLOAD_PRESET = "ImageUpload"; // Replace with your Cloudinary upload preset
@@ -136,62 +137,63 @@ export default function DocumentUpload() {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.header}>Upload Your Documents</Text>
+    <SafeAreaView style={{ backgroundColor: "#000", flex: 1 }}>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.header}>Upload Your Documents</Text>
 
-        {["aadhaar", "rc", "license"].map((doc) => (
-          <View key={doc} style={styles.uploadSection}>
-            <Text style={styles.label}>
-              {doc.charAt(0).toUpperCase() + doc.slice(1)}
-            </Text>
-            <TouchableOpacity
-              style={styles.uploadButton}
-              onPress={() =>
-                pickImageAndUpload(doc as "aadhaar" | "rc" | "license")
-              }
-            >
-              <Text style={styles.uploadButtonText}>Pick & Upload</Text>
-            </TouchableOpacity>
-            {images[doc as "aadhaar" | "rc" | "license"] && (
-              <Image
-                source={{ uri: images[doc as "aadhaar" | "rc" | "license"]! }}
-                style={styles.image}
-              />
-            )}
-          </View>
-        ))}
+          {["aadhaar", "rc", "license"].map((doc) => (
+            <View key={doc} style={styles.uploadSection}>
+              <Text style={styles.label}>
+                {doc.charAt(0).toUpperCase() + doc.slice(1)}
+              </Text>
+              <TouchableOpacity
+                style={styles.uploadButton}
+                onPress={() =>
+                  pickImageAndUpload(doc as "aadhaar" | "rc" | "license")
+                }
+              >
+                <Text style={styles.uploadButtonText}>Pick & Upload</Text>
+              </TouchableOpacity>
+              {images[doc as "aadhaar" | "rc" | "license"] && (
+                <Image
+                  source={{ uri: images[doc as "aadhaar" | "rc" | "license"]! }}
+                  style={styles.image}
+                />
+              )}
+            </View>
+          ))}
 
-        {uploading && <ActivityIndicator size="large" color="blue" />}
-      </View>
-
-      {/* Save to Neon DB */}
-      <View>
-        <CustomButton title="Submit Documents" onPress={handleSubmit} />
-      </View>
-    </ScrollView>
+          {uploading && <ActivityIndicator size="large" color="blue" />}
+          <CustomButton title="Submit Documents" onPress={handleSubmit} />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  BigBg: {
+    color: "#00FF00",
+  },
+
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f8f9fa",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 10,
   },
   header: {
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: "bold",
-    marginBottom: 20,
-    color: "#333",
+    marginBottom: 25,
+    color: "#00FF00",
   },
   uploadSection: {
-    width: "100%",
+    width: "85%",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#121212",
     padding: 15,
     borderRadius: 10,
     shadowColor: "#000",
@@ -199,17 +201,19 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 3 },
     elevation: 3,
+    height: 200,
   },
   label: {
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 10,
-    color: "#444",
+    color: "#CCCCCC",
   },
   uploadButton: {
-    backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: "#44D62C",
+    marginTop: 25,
+    paddingVertical: 25,
+    paddingHorizontal: 30,
     borderRadius: 5,
   },
   uploadButtonText: {
@@ -217,9 +221,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   image: {
-    width: 150,
+    width: 175,
     height: 150,
-    marginTop: 10,
+    marginTop: -100,
     borderRadius: 5,
   },
 });
